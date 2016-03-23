@@ -23,19 +23,9 @@ module.exports = (robot) ->
           iid = objectAttr.iid
           mergeRequestUrl = "#{gitlabUrl}#{nameSpace}/#{name}/merge_requests/#{iid}"
 
-          formatDate = (d) ->
-            year   = d.getUTCFullYear()
-            month  = "0#{d.getUTCMonth() + 1}".slice(-2)
-            date   = "0#{d.getUTCDate()}".slice(-2)
-            hour   = "0#{d.getUTCHours() + 9}".slice(-2)
-            minute = "0#{d.getUTCMinutes()}".slice(-2)
-            second = "0#{d.getUTCSeconds()}".slice(-2)
-            return "#{year}/#{month}/#{date} #{hour}:#{minute}:#{second}"
-          createTime = formatDate new Date createdAt
-
           envelope = room: req.params.channel
           robot.send envelope, """
-          Merge Request ##{iid} created by #{body.user.name} at #{createTime}
+          Merge Request ##{iid} created by #{body.user.name} at #{createdAt}
           #{mergeRequestUrl}
           >>>
           *#{title}*
