@@ -1,6 +1,6 @@
 module.exports = (robot) ->
 
-  robot.router.post "/merge_request/:channel", (req, res) ->
+  robot.router.post "/mergerequest/:channel", (req, res) ->
     if robot.adapter instanceof slack.SlackBot
       channel = req.params?.channel
       body = req.body
@@ -15,9 +15,9 @@ module.exports = (robot) ->
           description = objectAttr.description
 
           gitlabUrl = process.env.GITLAB_URL or '/'
-          if not gitlabUrl.match(/\/$/)
+          if not /\/$/m.test gitlabUrl
             gitlabUrl = "#{gitlabUrl}/"
-          nameSpace = objectAttr.source.namespace.toLowerCase().replace(/ /g, '-')
+          nameSpace = objectAttr.source.namespace.toLowerCase().replace /[ ]/g, '-'
           name = objectAttr.source.name.toLowerCase()
           iid = objectAttr.iid
           mergeRequestUrl = "#{gitlabUrl}#{nameSpace}/#{name}/merge_requests/#{iid}"
