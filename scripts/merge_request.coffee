@@ -14,11 +14,13 @@ module.exports = (robot) ->
           title = objectAttr.title
           description = objectAttr.description
 
-          gitlabUrl = process.env.GITLAB_URL or ''
+          gitlabUrl = process.env.GITLAB_URL or '/'
+          if not gitlabUrl.match(/\/$/)
+            gitlabUrl = "#{gitlabUrl}/"
           nameSpace = objectAttr.source.namespace.toLowerCase().replace(/ /g, '-')
           name = objectAttr.source.name.toLowerCase()
           iid = objectAttr.iid
-          mergeRequestUrl = "#{gitlabUrl}/#{nameSpace}/#{name}/merge_requests/#{iid}"
+          mergeRequestUrl = "#{gitlabUrl}#{nameSpace}/#{name}/merge_requests/#{iid}"
 
           formatDate = (d) ->
             year   = d.getUTCFullYear()
