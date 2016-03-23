@@ -6,31 +6,36 @@ module.exports = (robot) ->
       channel = req.params?.channel
       body = req.body
 
-      if channel? and body? and body.object_kind is 'merge_request' and body.object_attributes?.state is 'opened'
-        objectAttr = body.object_attributes
-        createdAt = objectAttr.created_at
-        updatedAt = objectAttr.updated_at
+      if channel? and body?
+        object_kind = body.object_kind
+        state = body.object_attributes?.state
+        if object_kind is 'merge_request' and state is 'opened'
 
-        if createdAt is updatedAt
-          title = objectAttr.title
-          description = objectAttr.description
+          oa = body.object_attributes
+          createdAt = oa.created_at
+          updatedAt = oa.updated_at
 
-          gitlabUrl = process.env.GITLAB_URL or '/'
-          if not /\/$/m.test gitlabUrl
-            gitlabUrl = "#{gitlabUrl}/"
-          nameSpace = objectAttr.source.namespace.toLowerCase().replace /[ ]/g, '-'
-          name = encodeURIComponent objectAttr.source.name.toLowerCase()
-          iid = objectAttr.iid
-          mergeRequestUrl = "#{gitlabUrl}#{nameSpace}/#{name}/merge_requests/#{iid}"
+          if createdAt is updatedAt
+            title = oa.title
+            description = oa.description
 
-          envelope = room: req.params.channel
-          robot.send envelope, """
-          Merge Request ##{iid} created by #{body.user.name} at #{createdAt}
-          #{mergeRequestUrl}
-          >>>
-          *#{title}*
-          #{description}
-          """
+            gitlabUrl = process.env.GITLAB_URL or '/'
+            if not /\/$/m.test gitlabUrl
+              gitlabUrl = "#{gitlabUrl}/"
+            nameSpace = oa.source.namespace.toLowerCase().replace /[ ]/g, '-'
+            name = encodeURIComponent oa.source.name.toLowerCase()
+            iid = oa.iid
+            url = "#{gitlabUrl}#{nameSpace}/#{name}/merge_requests/#{iid}"
+
+            envelope = room: req.params.channel
+            robot.send envelope, """
+            Merge Request ##{iid} created by #{body.user.name} at #{createdAt}
+            #{url}
+            >>>
+            *#{title}*
+            #{description}
+            """
+
     catch error
       responseJson = "{\"err\": \"#{error}\", \"req\": \"#{req}\"}"
 
