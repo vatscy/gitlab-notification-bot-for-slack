@@ -19,7 +19,7 @@ module.exports = (robot) ->
           if not /\/$/m.test gitlabUrl
             gitlabUrl = "#{gitlabUrl}/"
           nameSpace = objectAttr.source.namespace.toLowerCase().replace /[ ]/g, '-'
-          name = objectAttr.source.name.toLowerCase()
+          name = encodeURIComponent objectAttr.source.name.toLowerCase()
           iid = objectAttr.iid
           mergeRequestUrl = "#{gitlabUrl}#{nameSpace}/#{name}/merge_requests/#{iid}"
 
@@ -40,7 +40,6 @@ module.exports = (robot) ->
           >>>
           *#{title}*
           #{description}
-          >>>
           """
     catch error
       responseJson = "{\"err\": \"#{error}\", \"req\": \"#{req}\"}"
