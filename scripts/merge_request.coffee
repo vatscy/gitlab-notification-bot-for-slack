@@ -31,7 +31,7 @@ module.exports = (robot) ->
             minute = "0#{d.getUTCMinutes()}".slice(-2)
             second = "0#{d.getUTCSeconds()}".slice(-2)
             return "#{year}/#{month}/#{date} #{hour}:#{minute}:#{second}"
-          createTime = formatDate createdAt
+          createTime = formatDate new Date createdAt
 
           envelope = room: req.params.channel
           robot.send envelope, """
