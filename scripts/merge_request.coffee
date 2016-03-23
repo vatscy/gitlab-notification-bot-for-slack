@@ -1,6 +1,6 @@
 module.exports = (robot) ->
 
-  robot.router.get "/merge_request/:channel", (req, res) ->
+  robot.router.post "/merge_request/:channel", (req, res) ->
     if robot.adapter instanceof slack.SlackBot
       channel = req.params?.channel
       body = req.body
