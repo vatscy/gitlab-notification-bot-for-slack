@@ -1,7 +1,7 @@
 module.exports = (robot) ->
 
   robot.router.post "/merge_request/:channel", (req, res) ->
-    responseJson = '{"error": null}'
+    responseJson = '{"err": null}'
     try
       channel = req.params?.channel
       body = req.body
@@ -43,7 +43,7 @@ module.exports = (robot) ->
           >>>
           """
     catch error
-      responseJson = "{\"error\": \"#{error}\"}"
+      responseJson = "{\"err\": \"#{error}\", \"req\": \"#{req}\"}"
 
     res.set 'Content-Type', 'application/json'
     res.send responseJson
