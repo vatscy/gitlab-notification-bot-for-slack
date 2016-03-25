@@ -1,6 +1,6 @@
 # GitLab Notification for Slack
 
-[GitLab](https://about.gitlab.com/) のWebhookを受けてSlackに通知を行います。
+[GitLab](https://about.gitlab.com/) のWebhookを受けてSlackに通知を行います。  
 現在、Merge request eventsにのみ対応しています。
 
 当ツールは [Hubot](http://www.heroku.com) フレームワークを基に作られたSlack用botです。
@@ -22,12 +22,12 @@ Personal appを作成してデプロイします。
 
 ### SlackにIntegrationを追加
 
-[Slack App Directory](https://slack.com/apps) から対象のSlackドメインに [Hubot Integration](https://slack.com/apps/A0F7XDU93-hubot) をインストールします。
+[Slack App Directory](https://slack.com/apps) から対象のSlackドメインに [Hubot Integration](https://slack.com/apps/A0F7XDU93-hubot) をインストールします。  
 通知時のユーザーネーム、アイコンなどを設定します。
 
 ### 通知対象チャンネルにbotを招待
 
-Integrationを追加するとbotが1ユーザーとしてSlackに参加する。
+Integrationを追加するとbotが1ユーザーとしてSlackに参加する。  
 通知を受け取るチャンネルにbotを招待します。
 
     /invite @<botname>
@@ -52,11 +52,12 @@ URLには以下を設定します。
 
 例: チャンネル名が `#hoge` の場合: `https://example.heroku.com/merge_request/hoge`
 
-## 通知
+## 通知機能
 
 botは、マージリクエストが作成された際にSlackの当該チャンネルに以下の内容を発言します。
 
 - 作成者名
 - 作成日時
-- マージリクエストタイトル
+- マージリクエストURL
+- タイトル
 - 説明
