@@ -3,6 +3,8 @@
 [GitLab](https://about.gitlab.com/) のWebhookを受けてSlackに通知を行います。  
 現在、Merge request eventsにのみ対応しています。
 
+**GitLabの最新バージョンを使えばGitLab上でSlack通知設定できますが、古いバージョンだとWebhookしか使えない...そんなときにお使いください。**
+
 当ツールは [Hubot](http://www.heroku.com) フレームワークを基に作られたSlack用botです。
 
 ## セットアップ
