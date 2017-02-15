@@ -29,7 +29,9 @@ module.exports = (robot) ->
 
             envelope = room: req.params.channel
             robot.send envelope, """
-            Merge Request ##{iid} created by #{body.user.name} at #{createdAt}
+            <!channel>
+            Merge Request ##{iid} created by #{body.user.name}
+            at #{createdAt}
             #{url}
             >>>
             *#{title}*
