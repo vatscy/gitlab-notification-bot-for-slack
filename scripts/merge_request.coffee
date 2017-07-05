@@ -18,6 +18,8 @@ module.exports = (robot) ->
           if createdAt is updatedAt
             title = oa.title
             description = oa.description
+            target = oa.target_branch
+            source = oa.source_branch
 
             gitlabUrl = process.env.GITLAB_URL or '/'
             if not /\/$/m.test gitlabUrl
@@ -29,9 +31,9 @@ module.exports = (robot) ->
 
             envelope = room: req.params.channel
             robot.send envelope, """
-            <!channel>
-            Merge Request ##{iid} created by #{body.user.name}
+            Merge Request ##{iid} created by #{body.user.username}
             at #{createdAt}
+            #{source} -> #{target}
             #{url}
             >>>
             *#{title}*
