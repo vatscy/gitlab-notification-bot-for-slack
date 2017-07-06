@@ -33,8 +33,8 @@ module.exports = (robot) ->
             robot.send envelope, """
             Merge Request ##{iid} created by #{body.user.username}
             at #{createdAt}
-            #{source} -> #{target}
             #{url}
+            _#{source} -> #{target}_
             >>>
             *#{title}*
             #{description}
